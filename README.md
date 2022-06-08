@@ -63,6 +63,9 @@ Two versions of the dataset are available:
 <br /> 
 
 ### **Layout**
+<sub>
+<!-- <sup> -->
+
 &#8595; **data/*** -> main data directory
 
 > &#8595; **data/PID/***         -> data of a single protein of length **L**
@@ -85,11 +88,9 @@ Two versions of the dataset are available:
 > &#8595; **data/PID2/***  -> folder of protein #2
 > > 
 > > **...**
-<!-- > > | **lldt.npy**        | ($s_i$)  evoformer single representation   | *[**L** x 384]* |    -->
-<!-- > > | **conf.npy**        |  $(z_{ij}$) evoformer pair representation  |  *[**L** x **L** x 128]* |  -->
-<!-- > > | **sac.npy**   | $(a_i)$  output of the last layer of structure module  | *[**L** x 384]* |  -->
 ---
-
+<!-- </sup> -->
+</sub>
 <br /> 
 
 ---
