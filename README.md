@@ -7,7 +7,9 @@
 
 This dataset will contain AlphaFold's predictions and internal embeddings for most* of the proteins that are referenced in Papyrus.
 
-Why is this dataset needed?
+**Note: At the current date **(08/06/2022) - 3423/6231** proteins contained in Papyrus dataset are fully processed. Some of the longer sequences (5000+ amino acids) might remain off-limits with the available hardware).*
+
+Why is this dataset useful?
 - Even though an extensive database of AlphaFold’s predictions of protein 3D structures is already publicly available, the features that the model uses internally have not yet been published. Since the final output of AlphaFold is the set of 3D coordinates of the protein backbone, one could argue that this format is highly condensed (given the huge scale-down in dimensionality). It is likely that there is a lot more valuable information that can be captured within this large transformer model.
 - Additionally, since processing multiple proteins through this model takes a considerable amount of time and compute, doing it multiple times is somewhat wasteful. After processing a protein sequence the generated embeddings and predictions can be saved and reused for other projects.
 
@@ -50,9 +52,9 @@ Definitions for each internal representation of proteins used within AlphaFold c
 Folder contents for each processed protein are listed below:
 
 
-&#8595; **data/***
+&#8595; **data/*** -> main data directory
 
-> &#8595; **data/PID/***
+> &#8595; **data/PID/***         -> folder of a single protein
 >
 > > 
 > > | Filename | Description | Tensor shape |
@@ -68,7 +70,7 @@ Folder contents for each processed protein are listed below:
 > > |**PID.fasta**    | fasta file containing the amino acid sequence of that protein | | |
 > > | **features.pkl**    | Various additional metrics that AlphaFold saves automatically   
 > > | **timings.json**    | Processing log 
-> &#8595; **data/PID2/***
+> &#8595; **data/PID2/***  -> folder of a single protein #2
 > > 
 > > **...**
 ---
@@ -98,7 +100,7 @@ git clone URL && cd foldedPapyrus
     You can use a file containing a list of protein accession numbers separated by a newline **“\n”** and pass it via command line. You can find examples of these protein subset files in the ***subsets/*** directory.
     
     ```bash
-    python download.py --pid_file subsets/kinases.csv
+    python download.py --pid_file subsets/kinases.txt
     ```
     
 3. **Full dataset**
