@@ -82,8 +82,8 @@ Two versions of the dataset are available:
 > > | **features.pkl**    | Additional metrics that are saved automatically | | ✔️   
 > > | **timings.json**    | Processing log  | | ✔️
 > &#8595; **data/PID2/***  -> data of protein #2
-> > 
 > > **...**
+> > 
 </sup>
 
 **Note: **L**: sequence length, **N**: number of aligned sequences via MSA.*
@@ -125,8 +125,6 @@ git clone https://github.com/andriusbern/foldedPapyrus && cd foldedPapyrus
 
 
 
-<br /> 
-
 <!-- ---
 ## **4. Sample code**
 
@@ -144,8 +142,6 @@ This repository also contains some sample code for using this dataset:
         - Generating some statistics for your data subset
         - Training a base model
 -->
-
-<br /> 
 
 ---
 ## Notes <a name="notes"></a>
