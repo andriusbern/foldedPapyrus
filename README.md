@@ -4,12 +4,19 @@
 
 # <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/320/softbank/145/scroll_1f4dc.png" alt="drawing" width="25"/> **Folded Papyrus** 
 
+# Contents
+- [Introduction](#introduction)
+- [Dataset](#dataset)
+- [Download](#download)
+- [Notes](#notes)
 
-This dataset will contain AlphaFold's predictions and internal embeddings for most* of the proteins that are referenced in [Papyrus](https://chemrxiv.org/engage/chemrxiv/article-details/617aa2467a002162403d71f0).
+---
+
+This dataset will contain AlphaFold's predictions and internal representations for a large subset* of the proteins that are referenced in [Papyrus](https://chemrxiv.org/engage/chemrxiv/article-details/617aa2467a002162403d71f0). 
 
 **Note: At the current date **(08/06/2022) - 3423/6000+** proteins contained in Papyrus dataset are fully processed. Some of the longer sequences (5000+ amino acids) might remain off-limits with the available hardware).*
 
-Why is this dataset useful?
+Why might this dataset be useful?
 - Even though an extensive database of AlphaFold’s predictions of protein 3D structures is already publicly available, the features that the model uses internally have not yet been published. Since the final output of AlphaFold is the set of 3D coordinates of the protein backbone, one could argue that this format is highly condensed (given the huge scale-down in dimensionality). It is likely that there is a lot more valuable information that can be captured within this large transformer model.
 - Additionally, since processing multiple proteins through this model takes a considerable amount of time and compute, doing it multiple times is somewhat wasteful. After processing a protein sequence the generated embeddings and predictions can be saved and reused for other projects.
 
@@ -17,7 +24,7 @@ Why is this dataset useful?
 <br /> 
 
 ---
-## **1. Quick description of AlphaFold**
+## **1. Quick description of AlphaFold** <a name="introduction"></a>
 
 
 
@@ -41,51 +48,59 @@ Definitions for each internal representation of proteins used within AlphaFold c
 
    
 ### **D.** Amber relaxation (CPU/GPU):
-1.  Makes sure that there are no violations and clashes in the generated 3D structure and attempts to fix it if needed.
+1.  Post processing step that ensures that there are no violations and clashes in the generated 3D structure and attempts to fix it if needed.
 
 
 <br /> 
 
 ---
-## **2. Dataset contents**
+## **2. Dataset contents** <a name="dataset"></a>
 
-Folder contents for each processed protein are listed below:
+Two versions of the dataset are available:
+1. **Lightweight** - contents listed in the table below. This is the default option when downloading (**1-10MB** per protein).
+2. **Full** - includes MSA representation $(m_{si})$, pair representation $(z_{ij})$ and distogram logits. Drastically increases the size of the dataset (**+~100-1000MB** per protein). Currently full data is only available for a small subset of proteins.
 
+<br /> 
 
+### **Layout**
 &#8595; **data/*** -> main data directory
 
-> &#8595; **data/PID/***         -> folder of a single protein
+> &#8595; **data/PID/***         -> data of a single protein of length **L**
 >
 > > 
-> > | Filename | Description | Tensor shape |
-> > | --- | --- | --- |
-> > | **msa.npy***         | $(m_{si})$ processed MSA representation            |  *[num_aligned_seqs x **L** x 256]* 
-> > | **single.npy***      | ($s_i$)  evoformer single representation   | *[**L** x 384]* |   
+> > | Filename | Description | Tensor shape | Lightweight |
+> > | --- | --- | --- | --- |
+> > | **single.npy***      | ($s_i$)  evoformer single representation   | *[**L** x 384]* |   ✔️
+> > | **structure.npy***   | $(a_i)$  output of the last layer of structure module  | *[**L** x 384]* | ✔️
+> > | **msa.npy***         | $(m_{si})$ processed MSA representation            |  *[aligned_seqs x **L** x 256]* |
 > > | **pair.npy***        |  $(z_{ij}$) evoformer pair representation  |  *[**L** x **L** x 128]* | 
-> > | **structure.npy***   | $(a_i)$  output of the last layer of structure module  | *[**L** x 384]* | 
-> > | **PID.pdb**     | 3D protein structure prediction | | |
-> > |**PID.fasta**    | fasta file containing the amino acid sequence of that protein | | |
-> > | **features.pkl**    | Various additional metrics that AlphaFold saves automatically   
-> > | **timings.json**    | Processing log 
-> &#8595; **data/PID2/***  -> folder of a single protein #2
+> > | **PID.pdb**     | 3D protein structure prediction |  | ✔️
+> > | **PID_unrelaxed.pdb**     | 3D protein structure prediction before relaxation step (D.) |  | ✔️
+> > | **confidence.npy***   | confidence in structure prediction (0-100)  | *[1]* | ✔️
+> > | **plldt.npy***   | confidence in structure prediction per residue  | *[**L**]* | ✔️
+> > | **distogram_logits.npy***        | probability distribution of the structure distogram  |  *[**L** x **L** x 64]* | 
+> > |**PID.fasta**    | amino acid sequence and metadata of the protein (from UNIPROT) | |✔️ 
+> > | **features.pkl**    | Various additional metrics that AlphaFold saves automatically | | ✔️   
+> > | **timings.json**    | Processing log  | | ✔️
+> &#8595; **data/PID2/***  -> folder of protein #2
 > > 
 > > **...**
 <!-- > > | **lldt.npy**        | ($s_i$)  evoformer single representation   | *[**L** x 384]* |    -->
 <!-- > > | **conf.npy**        |  $(z_{ij}$) evoformer pair representation  |  *[**L** x **L** x 128]* |  -->
 <!-- > > | **sac.npy**   | $(a_i)$  output of the last layer of structure module  | *[**L** x 384]* |  -->
 ---
-*Note: **PID** refers to the protein accesion number, **L** - number of residues in the protein sequence.*
 
 <br /> 
 
 ---
-## **3. How to download**
+## **3. How to download** <a name="download"></a>
 
 First clone the repository:
 
 ```bash
-git clone URL && cd foldedPapyrus
+git clone https://github.com/andriusbern/foldedPapyrus && cd foldedPapyrus
 ```
+
 
 1. **Single proteins**
 
@@ -111,6 +126,8 @@ git clone URL && cd foldedPapyrus
     python download.py --all
     ```
 
+
+
 <br /> 
 
 <!-- ---
@@ -134,9 +151,13 @@ This repository also contains some sample code for using this dataset:
 <br /> 
 
 ---
-## Notes
+## Notes <a name="notes"></a>
 
 1. AlphaFold actually consists of 5 separate models with slightly different architectures and hyperparameters. The normal pipeline of processing a single protein involves all 5 of these models whose predictions are then ranked based on the confidence metrics. Since this requires 5x the time/compute, this dataset was created by only running the [Model 0]. In the future this dataset could be expanded to include predictions from all models (if there is a need for it).
 2. This dataset was produced by modifying AlphaFold code, parallelising it and optimising the throughput of CPU and GPU intensive parts of the code. By now the pipeline is very automated so if you need embeddings for specific proteins, please contact me at a.bernatavicius@liacs.leidenuniv.nl, I will be glad to help.
 
 ---
+
+## References:
+1. Béquignon OJM, Bongers BJ, Jespers W, IJzerman AP, van de Water B, van Westen GJP. Papyrus - A large scale curated dataset aimed at bioactivity predictions. ChemRxiv. Cambridge: Cambridge Open Engage; 2021; This content is a preprint and has not been peer-reviewed.
+2. Jumper, J., Evans, R., Pritzel, A. et al. Highly accurate protein structure prediction with AlphaFold. Nature 596, 583–589 (2021). https://doi.org/10.1038/s41586-021-03819-2
