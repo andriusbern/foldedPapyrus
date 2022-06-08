@@ -6,13 +6,14 @@ import argparse
 
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 DATA_DIR = os.path.join(SCRIPT_DIR, 'data')
-DATASET_URL_LITE = f'https://surfdrive.surf.nl/files/index.php/s/L0BWq8tw3vHSrOC/download?path=%2F'
+DATASET_URL_LITE = f'https://surfdrive.surf.nl/files/index.php/s/fE7hpHbd0LJZu6h/download?path=%2F'
 DATASET_URL_FULL = f'https://surfdrive.surf.nl/files/index.php/s/P8XXnoGonUCMLSr/download?path=%2F'
 
-def download_protein(pid, full_data=False, unzip=True):
+
+def download_protein_data(pid, full_data=False, unzip=True, status=''):
     """Downloads the processed protein sequence from online storage"""
 
-    print(f'Downloading protein sequence {pid}...', end='\r')
+    print(f'{status} Downloading protein sequence {pid}...', end='\r')
 
     url = DATASET_URL_FULL if full_data else DATASET_URL_LITE
     data_url = url + f'{pid}.zip'
@@ -21,18 +22,27 @@ def download_protein(pid, full_data=False, unzip=True):
 
     try:
         request.urlretrieve(data_url, local_file)
+    except Exception as e:
+        os.remove(local_file)
+        print(f'Files for protein {pid} could not be downloaded.', e)
+        return False
+
+    try:
         if unzip:
             unzip_file(local_file)
-            
+        return True
     except:
-        print(f'Files for protein {pid} were not found.\n')
-
+        print(f'Could not unzip file {pid}.')
+        return False
+            
 
 def unzip_file(filename, remove_original=True):
     """Unzips a file"""
 
     with zipfile.ZipFile(filename, 'r') as zip_ref:
-        zip_ref.extractall(DATA_DIR)
+        target_dir = os.path.join(DATA_DIR, filename.split('.')[0])
+        os.makedirs(target_dir, exist_ok=True)
+        zip_ref.extractall(target_dir)
     if remove_original:
         os.remove(filename)
 
@@ -45,20 +55,32 @@ if __name__ == "__main__":
     parser.add_argument('-x', '--full', action='store_true')
     args = parser.parse_args()
 
-    print('Downloading foldedPapyrus data...')
+    print(f'{"*"*30}\nDownloading foldedPapyrus data...\n{"*"*30}\n')
 
     if args.pid:
-        download_protein(args.pid, full_data=args.full)
+        status = download_protein_data(args.pid, full_data=args.full)
+        if status:
+            print(f'\nSuccessfully downloaded data for protein {args.pid}')
     
     elif args.pid_file:
+        unavailable, processed = [], 0
         with open(args.pid_file, 'r') as f:
             lines = f.readlines()
             print(f'Downloading {len(lines)} proteins listed in {args.pid_file}...\n')
-            for line in lines:
+            for i, line in enumerate(lines):
                 accession = line.strip().split('_')[0]
-                download_protein(accession, full_data=args.full)
+                progress = f'{i+1}/{len(lines)}'
+                status = download_protein_data(accession, full_data=args.full, status=progress)
+                if not status:
+                    unavailable.append(accession)
+                else:
+                    processed += 1
+
+        formatted = "\n".join(unavailable)
+        print(f'{"*"*50} \nDownloaded data for {processed}/{len(lines)} proteins.')
+        print(f'The following proteins were not found: \n{formatted}\n{"*"*50}')
     
     elif args.all:
         with open('utils/processed_pids.csv', 'r') as f:
             for pid in f.readlines():
-                download_protein(pid.strip(), full_data=args.full)
+                download_protein_data(pid.strip(), full_data=args.full)
