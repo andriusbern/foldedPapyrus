@@ -58,6 +58,7 @@ Two versions of the dataset are available:
 
 
 ### **Layout**
+---
 <!-- <sub> -->
 <sup>
 
@@ -70,21 +71,22 @@ Two versions of the dataset are available:
 > > | --- | --- | --- | --- |
 > > | **single.npy***      | ($s_i$)  evoformer single representation   | *[**L** x 384]* |   ✔️
 > > | **structure.npy***   | $(a_i)$  output of the last layer of structure module  | *[**L** x 384]* | ✔️
-> > | **msa.npy***         | $(m_{si})$ processed MSA representation            |  *[aligned_seqs x **L** x 256]* |
+> > | **msa.npy***         | $(m_{si})$ processed MSA representation            |  *[**N** x **L** x 256]* |
 > > | **pair.npy***        |  $(z_{ij}$) evoformer pair representation  |  *[**L** x **L** x 128]* | 
 > > | **PID.pdb**     | 3D protein structure prediction |  | ✔️
-> > | **PID_unrelaxed.pdb**     | 3D protein structure prediction before relaxation step (D.) |  | ✔️
+> > | **PID_unrelaxed.pdb**     | 3D protein structure prediction before relaxation step (D) |  | ✔️
 > > | **confidence.npy***   | confidence in structure prediction (0-100)  | *[1]* | ✔️
 > > | **plldt.npy***   | confidence in structure prediction per residue  | *[**L**]* | ✔️
 > > | **distogram_logits.npy***        | probability distribution of the structure distogram  |  *[**L** x **L** x 64]* | 
-> > |**PID.fasta**    | amino acid sequence and metadata of the protein (from UNIPROT) | |✔️ 
-> > | **features.pkl**    | Various additional metrics that AlphaFold saves automatically | | ✔️   
+> > |**PID.fasta**    | amino acid sequence and metadata of the protein (UNIPROT) | |✔️ 
+> > | **features.pkl**    | Additional metrics that are saved automatically | | ✔️   
 > > | **timings.json**    | Processing log  | | ✔️
-> &#8595; **data/PID2/***  -> folder of protein #2
+> &#8595; **data/PID2/***  -> data of protein #2
 > > 
 > > **...**
-
 </sup>
+
+**Note: **L**: sequence length, **N**: number of aligned sequences via MSA.*
 <!-- </sub> -->
 
 ---
