@@ -7,7 +7,7 @@
 
 This dataset will contain AlphaFold's predictions and internal embeddings for most* of the proteins that are referenced in Papyrus.
 
-**Note: At the current date **(08/06/2022) - 3423/6231** proteins contained in Papyrus dataset are fully processed. Some of the longer sequences (5000+ amino acids) might remain off-limits with the available hardware).*
+**Note: At the current date **(08/06/2022) - 3423/6000+** proteins contained in Papyrus dataset are fully processed. Some of the longer sequences (5000+ amino acids) might remain off-limits with the available hardware).*
 
 Why is this dataset useful?
 - Even though an extensive database of AlphaFold’s predictions of protein 3D structures is already publicly available, the features that the model uses internally have not yet been published. Since the final output of AlphaFold is the set of 3D coordinates of the protein backbone, one could argue that this format is highly condensed (given the huge scale-down in dimensionality). It is likely that there is a lot more valuable information that can be captured within this large transformer model.
