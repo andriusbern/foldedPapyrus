@@ -63,9 +63,6 @@ Folder contents for each processed protein are listed below:
 > > | **single.npy***      | ($s_i$)  evoformer single representation   | *[**L** x 384]* |   
 > > | **pair.npy***        |  $(z_{ij}$) evoformer pair representation  |  *[**L** x **L** x 128]* | 
 > > | **structure.npy***   | $(a_i)$  output of the last layer of structure module  | *[**L** x 384]* | 
-> > | **lldt.npy**        | ($s_i$)  evoformer single representation   | *[**L** x 384]* |   
-> > | **conf.npy**        |  $(z_{ij}$) evoformer pair representation  |  *[**L** x **L** x 128]* | 
-> > | **sac.npy**   | $(a_i)$  output of the last layer of structure module  | *[**L** x 384]* | 
 > > | **PID.pdb**     | 3D protein structure prediction | | |
 > > |**PID.fasta**    | fasta file containing the amino acid sequence of that protein | | |
 > > | **features.pkl**    | Various additional metrics that AlphaFold saves automatically   
@@ -73,6 +70,9 @@ Folder contents for each processed protein are listed below:
 > &#8595; **data/PID2/***  -> folder of a single protein #2
 > > 
 > > **...**
+<!-- > > | **lldt.npy**        | ($s_i$)  evoformer single representation   | *[**L** x 384]* |    -->
+<!-- > > | **conf.npy**        |  $(z_{ij}$) evoformer pair representation  |  *[**L** x **L** x 128]* |  -->
+<!-- > > | **sac.npy**   | $(a_i)$  output of the last layer of structure module  | *[**L** x 384]* |  -->
 ---
 *Note: **PID** refers to the protein accesion number, **L** - number of residues in the protein sequence.*
 
