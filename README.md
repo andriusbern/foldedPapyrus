@@ -5,7 +5,7 @@
 # <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/320/softbank/145/scroll_1f4dc.png" alt="drawing" width="25"/> **Folded Papyrus** 
 
 
-This dataset will contain AlphaFold's predictions and internal embeddings for most* of the proteins that are referenced in Papyrus.
+This dataset will contain AlphaFold's predictions and internal embeddings for most* of the proteins that are referenced in [Papyrus](https://chemrxiv.org/engage/chemrxiv/article-details/617aa2467a002162403d71f0).
 
 **Note: At the current date **(08/06/2022) - 3423/6000+** proteins contained in Papyrus dataset are fully processed. Some of the longer sequences (5000+ amino acids) might remain off-limits with the available hardware).*
 
@@ -138,7 +138,5 @@ This repository also contains some sample code for using this dataset:
 
 1. AlphaFold actually consists of 5 separate models with slightly different architectures and hyperparameters. The normal pipeline of processing a single protein involves all 5 of these models whose predictions are then ranked based on the confidence metrics. Since this requires 5x the time/compute, this dataset was created by only running the [Model 0]. In the future this dataset could be expanded to include predictions from all models (if there is a need for it).
 2. This dataset was produced by modifying AlphaFold code, parallelising it and optimising the throughput of CPU and GPU intensive parts of the code. By now the pipeline is very automated so if you need embeddings for specific proteins, please contact me at a.bernatavicius@liacs.leidenuniv.nl, I will be glad to help.
-3. At the current date (08/06/2022) - **3423/6231** proteins contained in Papyrus dataset are fully processed.
- Some of the longer sequences (5000+ amino acids) might remain off-limits with the available hardware).
 
 ---
