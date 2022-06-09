@@ -1,4 +1,5 @@
-import os
+import os, time
+from re import S
 from urllib import request
 import zipfile
 import argparse
@@ -19,6 +20,10 @@ def download_protein_data(pid, full_data=False, unzip=True, status=''):
     data_url = url + f'{pid}.zip'
     local_file = os.path.join(DATA_DIR, f'{pid}.zip')
     open(local_file, 'a').close()
+
+    if os.path.isdir(os.path.join(DATA_DIR, pid)):
+        print(f'{status} Protein sequence {pid} already downloaded.')
+        return True
 
     try:
         request.urlretrieve(data_url, local_file)
@@ -53,16 +58,28 @@ if __name__ == "__main__":
     parser.add_argument('-f', '--pid_file', type=str, default=None)
     parser.add_argument('-a', '--all', action='store_true')
     parser.add_argument('-x', '--full', action='store_true')
+    parser.add_argument('-s', '--subset', type=str, default=None)
     args = parser.parse_args()
 
     print(f'{"*"*30}\nDownloading foldedPapyrus data...\n{"*"*30}\n')
 
+    # Single protein
     if args.pid:
         status = download_protein_data(args.pid, full_data=args.full)
         if status:
             print(f'\nSuccessfully downloaded data for protein {args.pid}')
     
+    # Proteins from a file
     elif args.pid_file:
+
+        if not args.subset:
+            subset_name = os.path.split(args.pid_file.split('.')[0])[-1]
+        else:
+            subset_name = args.subset
+            
+        DATA_DIR = os.path.join(DATA_DIR, subset_name)
+
+        os.makedirs(DATA_DIR, exist_ok=True)
         unavailable, processed = [], 0
         with open(args.pid_file, 'r') as f:
             lines = f.readlines()
@@ -70,16 +87,21 @@ if __name__ == "__main__":
             for i, line in enumerate(lines):
                 accession = line.strip().split('_')[0]
                 progress = f'{i+1}/{len(lines)}'
+
                 status = download_protein_data(accession, full_data=args.full, status=progress)
                 if not status:
                     unavailable.append(accession)
                 else:
                     processed += 1
 
+                # To prevent serving too many requests to the server
+                time.sleep(1)
+
         formatted = "\n".join(unavailable)
         print(f'{"*"*50} \nDownloaded data for {processed}/{len(lines)} proteins.')
         print(f'The following proteins were not found: \n{formatted}\n{"*"*50}')
     
+    # Download all proteins
     elif args.all:
         with open('utils/processed_pids.csv', 'r') as f:
             for pid in f.readlines():

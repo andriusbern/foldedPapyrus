@@ -3,7 +3,9 @@
 
 
 # <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/320/softbank/145/scroll_1f4dc.png" alt="drawing" width="25"/> **Folded Papyrus** 
+This dataset contains AlphaFold's predictions and internal latent representations for a large subset* of the proteins that are referenced in [Papyrus](https://chemrxiv.org/engage/chemrxiv/article-details/617aa2467a002162403d71f0) (a large scale curated dataset aimed at bioactivity predictions). 
 
+**Note: At the current date **(08/06/2022) - 3423/6000+** proteins contained in Papyrus dataset are fully processed. Some of the longer sequences (5000+ amino acids) might remain off-limits with the available hardware).*
 # Contents
 - [Introduction](#introduction)
 - [Dataset](#dataset)
@@ -12,11 +14,9 @@
 
 ---
 
-This dataset will contain AlphaFold's predictions and internal representations for a large subset* of the proteins that are referenced in [Papyrus](https://chemrxiv.org/engage/chemrxiv/article-details/617aa2467a002162403d71f0). 
 
-**Note: At the current date **(08/06/2022) - 3423/6000+** proteins contained in Papyrus dataset are fully processed. Some of the longer sequences (5000+ amino acids) might remain off-limits with the available hardware).*
 
-Why might this dataset be useful?
+Why is this dataset be useful?
 - Even though an extensive database of AlphaFold’s predictions of protein 3D structures is already publicly available, the features that the model uses internally have not yet been published. Since the final output of AlphaFold is the set of 3D coordinates of the protein backbone, one could argue that this format is highly condensed (given the huge scale-down in dimensionality). It is likely that there is a lot more valuable information that can be captured within this large transformer model.
 - Additionally, since processing multiple proteins through this model takes a considerable amount of time and compute, doing it multiple times is somewhat wasteful. After processing a protein sequence the generated embeddings and predictions can be saved and reused for other projects.
 
@@ -28,7 +28,7 @@ Why might this dataset be useful?
 
 
 
-Definitions for each internal representation of proteins used within AlphaFold can be found in the [supplementary material](https://static-content.springer.com/esm/art%3A10.1038%2Fs41586-021-03819-2/MediaObjects/41586_2021_3819_MOESM1_ESM.pdf) of the AlphaFold publication. Below, each representation will be referred to using the same notation as in the paper.
+Definitions for each internal representation of proteins used within AlphaFold can be found in the [supplementary material](https://static-content.springer.com/esm/art%3A10.1038%2Fs41586-021-03819-2/MediaObjects/41586_2021_3819_MOESM1_ESM.pdf) of the original publication. Below, each representation will be referred to using the same notation as in the paper.
 
 ![https://elearning.bits.vib.be/wp-content/uploads/2021/12/architecture.png](https://elearning.bits.vib.be/wp-content/uploads/2021/12/architecture.png)
 
@@ -67,7 +67,7 @@ Two versions of the dataset are available:
 > &#8595; **data/PID/***         -> data of a single protein of length **L**
 >
 > > 
-> > | Filename | Description | Tensor shape | Lightweight |
+> > | Filename | Description |Tensor shape| Lightweight |
 > > | --- | --- | --- | --- |
 > > | **single.npy***      | ($s_i$)  evoformer single representation   | *[**L** x 384]* |   ✔️
 > > | **structure.npy***   | $(a_i)$  output of the last layer of structure module  | *[**L** x 384]* | ✔️
@@ -78,9 +78,9 @@ Two versions of the dataset are available:
 > > | **confidence.npy***   | confidence in structure prediction (0-100)  | *[1]* | ✔️
 > > | **plldt.npy***   | confidence in structure prediction per residue  | *[**L**]* | ✔️
 > > | **distogram_logits.npy***        | probability distribution of the structure distogram  |  *[**L** x **L** x 64]* | 
-> > |**PID.fasta**    | amino acid sequence and metadata of the protein (UNIPROT) | |✔️ 
-> > | **features.pkl**    | Additional metrics that are saved automatically | | ✔️   
+> > |**PID.fasta**    | protein amino acid sequence and metadata | |✔️ 
 > > | **timings.json**    | Processing log  | | ✔️
+<!-- > > | **features.pkl**    | Additional metrics that are saved automatically | | ✔️    -->
 > &#8595; **data/PID2/***  -> data of protein #2
 > > **...**
 > > 
@@ -123,7 +123,7 @@ git clone https://github.com/andriusbern/foldedPapyrus && cd foldedPapyrus
     python download.py --all
     ```
 
-
+- If you are trying to download a lot of data you might get a *"HTTP Error 429: Too many requests"* error. In that case you should wait an hour or so before downloading again.
 
 <!-- ---
 ## **4. Sample code**
