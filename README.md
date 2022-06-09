@@ -77,7 +77,7 @@ Two versions of the dataset are available:
 > > | **PID_unrelaxed.pdb**     | 3D protein structure prediction w/o relaxation step (D) |  | ✔️
 > > | **confidence.npy***   | confidence in structure prediction (0-100)  | *[1]* | ✔️
 > > | **plldt.npy***   | confidence in structure prediction per residue  | *[**L**]* | ✔️
-> > | **distogram_logits.npy***        | probability distribution of the structure distogram  |  *[**L** x **L** x 64]* | 
+<!-- > > | **distogram_logits.npy***        | probability distribution of the structure distogram  |  *[**L** x **L** x 64]* |  -->
 > > |**PID.fasta**    | protein amino acid sequence and metadata | |✔️ 
 > > | **timings.json**    | Processing log  | | ✔️
 <!-- > > | **features.pkl**    | Additional metrics that are saved automatically | | ✔️    -->
