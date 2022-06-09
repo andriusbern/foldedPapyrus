@@ -59,8 +59,8 @@ Two versions of the dataset are available:
 
 ### **Layout**
 ---
-<!-- <sub> -->
-<sup>
+<sub>
+<!-- <sup> -->
 
 &#8595; **data/*** -> main data directory
 
@@ -74,7 +74,7 @@ Two versions of the dataset are available:
 > > | **msa.npy***         | $(m_{si})$ processed MSA representation            |  *[**N** x **L** x 256]* |
 > > | **pair.npy***        |  $(z_{ij}$) evoformer pair representation  |  *[**L** x **L** x 128]* | 
 > > | **PID.pdb**     | 3D protein structure prediction |  | ✔️
-> > | **PID_unrelaxed.pdb**     | 3D protein structure prediction before relaxation step (D) |  | ✔️
+> > | **PID_unrelaxed.pdb**     | 3D protein structure prediction w/o relaxation step (D) |  | ✔️
 > > | **confidence.npy***   | confidence in structure prediction (0-100)  | *[1]* | ✔️
 > > | **plldt.npy***   | confidence in structure prediction per residue  | *[**L**]* | ✔️
 > > | **distogram_logits.npy***        | probability distribution of the structure distogram  |  *[**L** x **L** x 64]* | 
@@ -84,10 +84,10 @@ Two versions of the dataset are available:
 > &#8595; **data/PID2/***  -> data of protein #2
 > > **...**
 > > 
-</sup>
+<!-- </sup> -->
+</sub>
 
 **Note: **L**: sequence length, **N**: number of aligned sequences via MSA.*
-<!-- </sub> -->
 
 ---
 ## **3. How to download** <a name="download"></a>
