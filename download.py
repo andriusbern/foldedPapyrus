@@ -11,13 +11,15 @@ DATASET_URL_LITE = f'https://surfdrive.surf.nl/files/index.php/s/fE7hpHbd0LJZu6h
 DATASET_URL_FULL = f'https://surfdrive.surf.nl/files/index.php/s/P8XXnoGonUCMLSr/download?path=%2F'
 
 
-def download_protein_data(pid, full_data=False, unzip=True, status=''):
+def download_protein_data(pid, full_data=False, unzip=True, status='', data_url=None):
     """Downloads the processed protein sequence from online storage"""
 
     print(f'{status} Downloading protein sequence {pid}...', end='\r')
 
-    url = DATASET_URL_FULL if full_data else DATASET_URL_LITE
-    data_url = url + f'{pid}.zip'
+    if data_url is None:
+        url = DATASET_URL_FULL if full_data else DATASET_URL_LITE
+        data_url = url + f'{pid}.zip'
+
     local_file = os.path.join(DATA_DIR, f'{pid}.zip')
     open(local_file, 'a').close()
 
@@ -50,6 +52,7 @@ def unzip_file(filename, remove_original=True):
         zip_ref.extractall(target_dir)
     if remove_original:
         os.remove(filename)
+
 
 
 if __name__ == "__main__":

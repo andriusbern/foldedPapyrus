@@ -59,7 +59,7 @@ Two versions of the dataset are available:
 
 ### **Layout**
 ---
-<!-- <sub> -->
+<sub>
 <!-- <sup> -->
 
 &#8595; **data/*** -> main data directory
@@ -85,7 +85,7 @@ Two versions of the dataset are available:
 > > **...**
 > > 
 <!-- </sup> -->
-<!-- </sub> -->
+</sub>
 
 **Note: **L**: sequence length, **N**: number of aligned sequences via MSA.*
 
