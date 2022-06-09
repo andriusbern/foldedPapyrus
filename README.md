@@ -3,7 +3,7 @@
 
 
 # <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/320/softbank/145/scroll_1f4dc.png" alt="drawing" width="25"/> **Folded Papyrus** 
-This dataset contains AlphaFold's predictions and internal latent representations for a large subset* of the proteins that are referenced in [Papyrus](https://chemrxiv.org/engage/chemrxiv/article-details/617aa2467a002162403d71f0) (a large scale curated dataset aimed at bioactivity predictions). 
+This dataset contains [AlphaFold](https://www.nature.com/articles/s41586-021-03819-2)'s predictions and internal latent representations for a large subset* of the proteins that are referenced in [Papyrus][1] (a large scale curated dataset aimed at bioactivity predictions). 
 
 **Note: At the current date **(08/06/2022) - 3423/6000+** proteins contained in Papyrus dataset are fully processed. Some of the longer sequences (5000+ amino acids) might remain off-limits with the available hardware).*
 # Contents
@@ -59,7 +59,7 @@ Two versions of the dataset are available:
 
 ### **Layout**
 ---
-<sub>
+<!-- <sub> -->
 <!-- <sup> -->
 
 &#8595; **data/*** -> main data directory
@@ -85,7 +85,7 @@ Two versions of the dataset are available:
 > > **...**
 > > 
 <!-- </sup> -->
-</sub>
+<!-- </sub> -->
 
 **Note: **L**: sequence length, **N**: number of aligned sequences via MSA.*
 
@@ -152,5 +152,7 @@ This repository also contains some sample code for using this dataset:
 ---
 
 ## References:
-1. Béquignon OJM, Bongers BJ, Jespers W, IJzerman AP, van de Water B, van Westen GJP. Papyrus - A large scale curated dataset aimed at bioactivity predictions. ChemRxiv. Cambridge: Cambridge Open Engage; 2021; This content is a preprint and has not been peer-reviewed.
+1. Béquignon OJM, Bongers BJ, Jespers W, IJzerman AP, van de Water B, van Westen GJP. [Papyrus - A large scale curated dataset aimed at bioactivity predictions. ](https://chemrxiv.org/engage/chemrxiv/article-details/617aa2467a002162403d71f0)ChemRxiv. Cambridge: Cambridge Open Engage; 2021; This content is a preprint and has not been peer-reviewed.
 2. Jumper, J., Evans, R., Pritzel, A. et al. Highly accurate protein structure prediction with AlphaFold. Nature 596, 583–589 (2021). https://doi.org/10.1038/s41586-021-03819-2
+
+[1]: <https://chemrxiv.org/engage/chemrxiv/article-details/617aa2467a002162403d71f0> "Béquignon OJM, Bongers BJ, Jespers W, IJzerman AP, van de Water B, van Westen GJP. Papyrus - A large scale curated dataset aimed at bioactivity predictions. ChemRxiv. Cambridge: Cambridge Open Engage; 2021; This content is a preprint and has not been peer-reviewed."
