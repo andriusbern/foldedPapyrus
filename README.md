@@ -16,7 +16,7 @@ This dataset contains [AlphaFold](https://www.nature.com/articles/s41586-021-038
 
 
 
-Why is this dataset be useful?
+Why is this dataset useful?
 - Even though an extensive database of AlphaFold’s predictions of protein 3D structures is already publicly available, the features that the model uses internally have not yet been published. Since the final output of AlphaFold is the set of 3D coordinates of the protein backbone, one could argue that this format is highly condensed (given the huge scale-down in dimensionality). It is likely that there is a lot more valuable information that can be captured within this large transformer model.
 - Additionally, since processing multiple proteins through this model takes a considerable amount of time and compute, doing it multiple times is somewhat wasteful. After processing a protein sequence the generated embeddings and predictions can be saved and reused for other projects.
 
