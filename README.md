@@ -5,7 +5,7 @@
 # <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/320/softbank/145/scroll_1f4dc.png" alt="drawing" width="25"/> **Folded Papyrus** 
 This dataset contains [AlphaFold](https://www.nature.com/articles/s41586-021-03819-2)'s predictions and internal latent representations for a large subset* of the proteins that are referenced in [Papyrus][1] (a large scale curated dataset aimed at bioactivity predictions). 
 
-**Note: At the current date **(17/06/2022) - 3948/6000+** proteins contained in Papyrus dataset are fully processed.*
+**Note: At the current date **(17/06/2022) - 3626/6000+** proteins contained in Papyrus dataset are fully processed.*
 # Contents
 - [Introduction](#introduction)
 - [Dataset](#dataset)
